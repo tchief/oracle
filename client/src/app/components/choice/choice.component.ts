@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { YesNoQuiz } from '../models/quiz.model';
+import { YesNoQuiz } from '../../models/quiz.model';
 import { rubberBandAnimation } from "angular-animations";
 
 @Component({

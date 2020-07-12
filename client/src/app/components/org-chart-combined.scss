@@ -1,0 +1,72 @@
+$connectorHeight: 2em;
+$connectorColor: green;
+$boxColor: #0085ca;
+$boxColorSelected: #3f51b5;
+$rootBox: #3f51b5;
+
+.org-chart-entity-border {
+  border-left: 1px solid $connectorColor;
+  border-top: 1px solid $connectorColor;
+}
+
+.org-chart-entity-connector {
+  height: $connectorHeight;
+}
+
+.org-chart-entity-box {
+  padding: 0.25em 0.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid $boxColor;
+  background-color: $boxColor;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 0.5rem 1rem #777;
+  max-width: 15vw;
+}
+
+.org-chart-entity-box.node-selected {
+  background-color: $boxColorSelected;
+  border-color: $boxColorSelected;
+  transition: all 1s;
+}
+
+.org-chart-entity-name {
+  color: #fff;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.org-chart-entity-type {
+  color: #fff;
+}
+
+.org-chart-container {
+  display: flex;
+  flex: 1;
+}
+
+.org-chart-sub-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.org-chart-connector-container {
+  display: flex;
+}
+
+.org-chart-connector {
+  flex: 1;
+}
+
+.node-root {
+  background-color: $rootBox;
+  border-color: $rootBox;
+}
+
+.node-root > .org-chart-entity-type {
+  font-weight: bold;
+  text-transform: uppercase;
+}

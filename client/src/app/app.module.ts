@@ -7,10 +7,12 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ChoiceComponent } from "./components/choice.component";
+import { ChoiceComponent } from "./components/choice/choice.component";
+import { OrgChartComponent } from "./components/org-chart/org-chart.component";
+import { EntityComponent } from "./components/org-chart-entity/entity.component";
 
 @NgModule({
-  declarations: [AppComponent, ChoiceComponent],
+  declarations: [AppComponent, ChoiceComponent, OrgChartComponent, EntityComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

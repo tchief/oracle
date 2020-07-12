@@ -2,9 +2,13 @@
   <span>{{ title }}</span>
 </mat-toolbar>
 
-<app-choice
-  class="app-quiz"
-  *ngIf="current"
-  [choice]="current"
-  (selected)="selected($event)"
-></app-choice>
+<div fxLayout="column" fxLayoutAlign="space-around">
+  <app-choice
+    class="app-quiz"
+    *ngIf="current"
+    [choice]="current"
+    (selected)="selected($event)"
+  ></app-choice>
+
+  <angular-org-chart class="app-chart" [data]="root"></angular-org-chart>
+</div>
