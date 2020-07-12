@@ -1,6 +1,6 @@
 export class YesNoQuiz {
   constructor(
-    public id: number,
+    public id: string,
     public question: string,
     public left?: YesNoQuiz,
     public right?: YesNoQuiz,
@@ -12,7 +12,7 @@ export class YesNoQuiz {
 
   answer?: boolean;
   choice: string;
-  isSelected: boolean;
+  isSelected: boolean = false;
 
   select(answer: boolean): YesNoQuiz {
     this.answer = answer;
@@ -22,14 +22,29 @@ export class YesNoQuiz {
   }
 
   get hasChildren(): boolean {
-    return this.right !== undefined || this.left !== undefined;
+    return (
+      (this.right !== undefined && this.right !== null) ||
+      (this.left !== undefined && this.left !== null)
+    );
   }
 
   get children() {
-    return [this.right, this.left].filter((n) => n !== undefined);
+    return [this.right, this.left].filter((n) => n !== undefined && n !== null);
   }
 
   get className(): string {
     return `${this.isSelected ? 'node-selected' : 'node-unselected'} ${this.isRoot ? 'node-root' : ''}`;
+  }
+
+  static buildFromRoot(root): YesNoQuiz {
+    return root
+      ? new YesNoQuiz(
+          root.id,
+          root.question,
+          this.buildFromRoot(root.left),
+          this.buildFromRoot(root.right),
+          root.isRoot
+        )
+      : root;
   }
 }

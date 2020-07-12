@@ -1,3 +1,4 @@
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from "@angular/material/button";
@@ -17,6 +18,7 @@ import { EntityComponent } from "./components/org-chart-entity/entity.component"
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
