@@ -8,16 +8,19 @@ export class YesNoQuiz {
   ) {
     if (this.left) this.left.choice = 'NO';
     if (this.right) this.right.choice = 'YES';
+    if (this.isRoot) this.hideChild = false;
   }
 
   answer?: boolean;
   choice: string;
   isSelected: boolean = false;
+  hideChild: boolean = true;
 
   select(answer: boolean): YesNoQuiz {
     this.answer = answer;
     let selected = answer ? this.right : this.left;
     selected.isSelected = true;
+    selected.hideChild = false;
     return selected;
   }
 

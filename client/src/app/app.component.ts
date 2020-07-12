@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   current: BehaviorSubject<YesNoQuiz> = new BehaviorSubject<YesNoQuiz>(undefined);
   current$: Observable<YesNoQuiz> = this.current.asObservable();
   hasCompleted$: Observable<boolean>;
+  hideChildren: boolean = true;
 
   selected(answer) {
     this.current.next(this.current.value.select(answer));
