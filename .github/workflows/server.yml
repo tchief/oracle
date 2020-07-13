@@ -1,0 +1,45 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master, pipeline ]
+  pull_request:
+    branches: [ master, pipeline ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./server/
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+
+    - name: Install dependencies
+      run: dotnet restore
+      working-directory: ${{env.working-directory}}
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      working-directory: ${{env.working-directory}}
+      
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+      working-directory: ${{env.working-directory}}
+    
+    - name: Package
+      run: |
+        dotnet publish -c Release -o dist
+      
+    - name: Deploy
+      uses: Azure/webapps-deploy@v2.1
+      with:
+        app-name: the-oracle
+        publish-profile: ${{ secrets.AZURE_APP_SERVICE }}
+        package: './dist'
