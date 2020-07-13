@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using LiteDB;
 using Oracle.Domain;
 
 namespace Oracle.Persistence
@@ -17,6 +19,8 @@ namespace Oracle.Persistence
             Task.FromResult(_context.Quizzes.FindAll());
 
         public Task<YesNoQuiz> SubmitQuiz(YesNoQuiz quiz) {
+            quiz.ObjectId = ObjectId.NewObjectId();
+            quiz.IsSubmitted = true;
             _context.Quizzes.Insert(quiz);
             return Task.FromResult(quiz);
         }

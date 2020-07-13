@@ -17,7 +17,7 @@ namespace Oracle.Persistence
 
             IReadOnlyCollection<YesNoQuiz> nodes = Enumerable
                 .Range(0, (int) Math.Pow(2, depth))
-                .Select(_ => new YesNoQuiz(Guid.NewGuid().ToString(), $"{Lorem.Sentence(4)}"))
+                .Select(_ => new YesNoQuiz($"{Lorem.Sentence(4)}"))
                 .ToList();
 
             while (nodes.Count > 1) nodes = Zip(nodes, generator);
@@ -28,6 +28,6 @@ namespace Oracle.Persistence
         }
 
         private static IReadOnlyCollection<YesNoQuiz> Zip(IReadOnlyCollection<YesNoQuiz> leafs, RandomGenerator generator) =>
-            leafs.Zip(leafs.Skip(1), (a, b) => new YesNoQuiz(Guid.NewGuid().ToString(), $"{Lorem.Sentence(4).TrimEnd('.')}?", a, b)).ToList();
+            leafs.Zip(leafs.Skip(1), (a, b) => new YesNoQuiz($"{Lorem.Sentence(4).TrimEnd('.')}?", a, b)).ToList();
     }
 }

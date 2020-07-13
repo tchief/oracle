@@ -21,7 +21,7 @@ namespace Oracle.Web
             => Ok(await _repository.GetQuizzesAsync());
 
         [HttpPost]
-        public async Task<ActionResult<YesNoQuiz>> SubmitQuiz(YesNoQuiz quiz)
+        public async Task<ActionResult<YesNoQuiz>> SubmitQuiz([FromBody] YesNoQuiz quiz)
             => Ok(await _repository.SubmitQuiz(quiz));
     }
 }

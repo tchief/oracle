@@ -16,17 +16,17 @@ namespace Oracle
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services) {
-            services.AddCors(options =>
-            {
+            services.AddCors(options => {
                 options.AddDefaultPolicy(
-                    builder => {
-                        builder.WithOrigins("http://localhost:4200", "https://github.io");
-                    });
+                    builder => { builder.WithOrigins("http://localhost:4200", "https://github.io").AllowAnyMethod().AllowAnyHeader(); });
             });
 
             services.AddSingleton(_ => new QuizLiteDbContext(Configuration.GetConnectionString("Default")));
             services.AddTransient<IQuizRepository, QuizLiteRepository>();
-            services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)));
+            services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
+                .AddJsonOptions(options => {
+                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                });
             services.AddControllers();
         }
 

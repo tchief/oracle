@@ -6,21 +6,23 @@
     <button
       [@rubberBand]="leftSelected"
       mat-raised-button
+      matTooltip="Press '['"
       color="accent"
       class="choices-option"
-      (click)="leftSelected = !leftSelected; onSelect(false)"
+      (click)="leftSelected = !leftSelected; onSelect(true)"
     >
-      No
+      Yes
     </button>
     <!-- <div fxFlex></div> -->
     <button
       [@rubberBand]="rightSelected"
       mat-raised-button
+      matTooltip="Press ']'"
       color="primary"
       class="choices-option"
-      (click)="rightSelected = !rightSelected; onSelect(true)"
+      (click)="rightSelected = !rightSelected; onSelect(false)"
     >
-      Yes
+      No
     </button>
   </mat-card-actions>
 </mat-card>

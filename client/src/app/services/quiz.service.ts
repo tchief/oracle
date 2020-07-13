@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { YesNoQuiz } from '../models/quiz.model';
@@ -10,6 +10,12 @@ import { YesNoQuiz } from '../models/quiz.model';
 })
 export class QuizService {
   constructor(private http: HttpClient) {}
+
+  submitQuiz(quiz: YesNoQuiz) {
+    return this.http
+      .post<YesNoQuiz>(`${environment.apiUrl}/quiz`, quiz)
+      .pipe(catchError((error) => throwError(error)));
+  }
 
   getQuizzes(): Observable<YesNoQuiz[]> {
     return this.http.get<YesNoQuiz[]>(`${environment.apiUrl}/quiz`).pipe(

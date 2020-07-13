@@ -9,7 +9,7 @@ namespace Oracle.Persistence
 
         public QuizLiteDbContext(string connection) {
             Database = new LiteDatabase(connection);
-            Quizzes.InsertBulk(RandomEntitiesGenerator.Seed());
+            if (!Quizzes.Exists(_ => true)) Quizzes.InsertBulk(RandomEntitiesGenerator.Seed());
         }
 
         public ILiteCollection<YesNoQuiz> Quizzes =>

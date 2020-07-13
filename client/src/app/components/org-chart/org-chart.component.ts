@@ -12,7 +12,7 @@ export class OrgChartComponent implements OnInit {
 
   ngOnInit() {
     if (this.data) {
-        this.toggleAllChildren(this.data, this.data.hideChild);
+        //this.toggleAllChildren(this.data, this.data.hideChild);
     }
   }
 
