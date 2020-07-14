@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { YesNoQuiz } from '../../models/quiz.model';
 import { rubberBandAnimation } from "angular-animations";
+import { Choice } from 'src/app/models/survey.model';
 
 @Component({
   selector: "app-choice",
@@ -9,7 +9,7 @@ import { rubberBandAnimation } from "angular-animations";
   animations: [rubberBandAnimation({ duration: 1000 })],
 })
 export class ChoiceComponent {
-  @Input() choice: YesNoQuiz;
+  @Input() choice: Choice;
   @Output() selected = new EventEmitter<boolean>();
   leftSelected: boolean = false;
   rightSelected: boolean = false;

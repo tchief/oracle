@@ -7,7 +7,7 @@ namespace Tests
     {
         [Fact]
         public void Test() {
-            RandomEntitiesGenerator.Seed();
+            RandomEntitiesGenerator.SeedSurveys();
         }
     }
 }
