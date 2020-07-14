@@ -27,7 +27,7 @@ export class SurveyComponent implements OnInit {
       this.activeRoute.params.subscribe(p => this.select(p));
     this.surveyService.getSurveys().subscribe(all => this.load(all));
     this.hasCompleted$ = this.current$.pipe(
-      map((current) => current?.hasChildren)
+      map((current) => current && !current.hasChildren)
     );
   }
 
@@ -85,7 +85,7 @@ export class SurveyComponent implements OnInit {
   }
 
   restart(value) {
-    if (this.isSubmitted) {
+    if (this.isSubmitted || (this.current.value && !this.current.value?.hasChildren)) {
       this.isLoading = true;
       this.root = this.surveyHelper.reset(this.root);
       this.current.next(this.root.root);

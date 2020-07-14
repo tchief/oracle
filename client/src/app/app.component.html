@@ -8,8 +8,8 @@
     (toggleNavBar)="sidenav.toggle()"
     (restartSurvey)="surveyRef?.restart(false)"
     (saveSurvey)="surveyRef?.save(false)"
-    [canRestartSurvey]="surveyRef?.isSubmitted"
-    [canSubmitSurvey]="!(surveyRef?.hasCompleted$ | async) && !surveyRef?.isSubmitted"
+    [canRestartSurvey]="(surveyRef?.hasCompleted$ | async) || surveyRef?.isSubmitted"
+    [canSubmitSurvey]="(surveyRef?.hasCompleted$ | async) && !surveyRef?.isSubmitted"
   ></app-toolbar>
   <!-- <app-survey #survey></app-survey> -->
   <router-outlet (activate)="onActivated($event)"></router-outlet>
