@@ -18,7 +18,7 @@ namespace Oracle
         public void ConfigureServices(IServiceCollection services) {
             services.AddCors(options => {
                 options.AddDefaultPolicy(
-                    builder => { builder.WithOrigins("http://localhost:4200", "https://github.io").AllowAnyMethod().AllowAnyHeader(); });
+                    builder => { builder.WithOrigins("http://localhost:4200", "https://github.io", "https://tchief.github.io").AllowAnyMethod().AllowAnyHeader(); });
             });
 
             services.AddSingleton(_ => new SurveyLiteDbContext(Configuration.GetConnectionString("Default")));
