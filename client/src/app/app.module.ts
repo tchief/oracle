@@ -15,9 +15,13 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatListModule } from '@angular/material/list';
+import { SurveyComponent } from './components/survey/survey.component'
 
 @NgModule({
-  declarations: [AppComponent, ChoiceComponent, OrgChartComponent, EntityComponent],
+  declarations: [AppComponent, ChoiceComponent, OrgChartComponent, EntityComponent, SurveyComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,7 +34,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
     MatToolbarModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSidenavModule,
+    LayoutModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,33 +1,48 @@
-<mat-toolbar class="app-toolbar">
-  <span>{{ title }}</span>
-  <div fxFlex></div>
-  <div matTooltip="Restart again (press 'r')">
+<mat-sidenav-container class="sidenav-container" hasBackdrop="true">
+  <mat-sidenav #sidenav mode="side" class="sidenav">
+    <mat-toolbar color="primary">Surveys</mat-toolbar>
+    <mat-nav-list class="sidenav-list">
+      <a
+        mat-list-item
+        *ngFor="let s of survey.surveys; let i = index"
+        [routerLink]="s.id"
+        routerActiveLink="active-survey"
+        [class.completed-survey]="s.submittedForms.length"
+      >
+        {{ s.name }}
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-toolbar class="app-toolbar">
     <button
       mat-icon-button
-      (click)="restart($event)"
-      [disabled]="!isSubmitted">
-      <mat-icon>cached</mat-icon>
+      (click)="sidenav.toggle()"
+      matTooltip="List all surveys (press 'l')"
+    >
+      <mat-icon>menu</mat-icon>
     </button>
-  </div>
-  <div matTooltip="Submit your answers when you have finished (press 's')">
-    <button
-      mat-icon-button
-      (click)="save($event)"
-      [disabled]="(hasCompleted$ | async) || (isSubmitted)">
-      <mat-icon>favorite</mat-icon>
-    </button>
-  </div>
-</mat-toolbar>
-<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    <span>{{ title }}</span>
+    <div fxFlex></div>
+    <div matTooltip="Restart again (press 'r')">
+      <button
+        mat-icon-button
+        (click)="survey.restart($event)"
+        [disabled]="!survey.isSubmitted"
+      >
+        <mat-icon>cached</mat-icon>
+      </button>
+    </div>
+    <div matTooltip="Submit your answers when you have finished (press 's')">
+      <button
+        mat-icon-button
+        (click)="survey.save($event)"
+        [disabled]="(survey.hasCompleted$ | async) || survey.isSubmitted"
+      >
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
 
-<div fxLayout="column" fxLayoutAlign="space-around">
-  <app-choice
-    class="app-quiz"
-    *ngIf="(current$ | async) && !(isSubmitted)"
-    [choice]="current$ | async"
-    (selected)="selected($event)"
-  ></app-choice>
-
-  <angular-org-chart class="app-chart" [data]="root?.root"></angular-org-chart>
-</div>
-<div #footer></div>
+  <app-survey #survey></app-survey>
+  <div #footer></div>
+</mat-sidenav-container>

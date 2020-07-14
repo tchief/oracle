@@ -15,7 +15,7 @@ namespace Oracle.Persistence
     {
         public static IReadOnlyCollection<Survey> SeedSurveys() {
             var generator = new RandomGenerator((int)DateTime.UtcNow.Ticks % int.MaxValue);
-            var depth = generator.Next(4, 4);
+            var depth = generator.Next(4, 10);
 
             var survey = new Survey {Name = $"{Company.Name()}", ObjectId = ObjectId.NewObjectId()};
 

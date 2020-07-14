@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using System.Linq;
+using LiteDB;
 using Oracle.Domain;
 
 namespace Oracle.Persistence
@@ -9,7 +10,12 @@ namespace Oracle.Persistence
 
         public SurveyLiteDbContext(string connection) {
             Database = new LiteDatabase(connection);
-            if (!Surveys.Exists(_ => true)) Surveys.InsertBulk(RandomEntitiesGenerator.SeedSurveys());
+            var total = Surveys.Count();
+            const int max = 10;
+            if (total < max) {
+                var newSurveys = Enumerable.Range(0, max - total).SelectMany(i => RandomEntitiesGenerator.SeedSurveys());
+                Surveys.InsertBulk(newSurveys);
+            }
         }
 
         public ILiteCollection<Survey> Surveys => Database.GetCollection<Survey>("Surveys");
