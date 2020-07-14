@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { YesNoQuiz } from 'src/app/models/quiz.model';
+import { Choice } from 'src/app/models/survey.model';
 
 @Component({
   selector: 'angular-org-chart',
@@ -7,7 +7,7 @@ import { YesNoQuiz } from 'src/app/models/quiz.model';
   styleUrls: ['./org-chart.component.scss', './../org-chart-combined.scss'],
 })
 export class OrgChartComponent implements OnInit {
-  @Input() data: YesNoQuiz;
+  @Input() data: Choice;
   @Input() hasParent = false;
 
   ngOnInit() {

@@ -1,0 +1,12 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+<div fxLayout="column" fxLayoutAlign="space-around">
+  <app-choice
+    class="app-quiz"
+    *ngIf="(current$ | async) && !isSubmitted"
+    [choice]="current$ | async"
+    (selected)="selected($event)"
+  ></app-choice>
+
+  <angular-org-chart class="app-chart" [data]="root?.root"></angular-org-chart>
+</div>

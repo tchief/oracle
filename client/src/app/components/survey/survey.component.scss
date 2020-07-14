@@ -1,0 +1,11 @@
+.app-quiz {
+  position: sticky;
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.app-quiz, .app-chart {
+  margin-top: 2em;
+}

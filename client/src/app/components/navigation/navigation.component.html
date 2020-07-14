@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">Prophecies</mat-toolbar>
+<mat-nav-list class="sidenav-list">
+  <a
+    mat-list-item
+    *ngFor="let survey of surveys; let i = index"
+    [routerLink]="survey.id"
+    routerLinkActive="active-survey"
+    [class.completed-survey]="survey.isSubmitted"
+  >
+    {{ survey.name }}
+    <span *ngIf="survey.isSubmitted"
+      >&nbsp;({{ survey.submittedForms.length }})</span
+    >
+  </a>
+</mat-nav-list>

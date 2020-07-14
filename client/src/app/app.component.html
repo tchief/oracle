@@ -1,33 +1,17 @@
-<mat-toolbar class="app-toolbar">
-  <span>{{ title }}</span>
-  <div fxFlex></div>
-  <div matTooltip="Restart again (press 'r')">
-    <button
-      mat-icon-button
-      (click)="restart($event)"
-      [disabled]="!isSubmitted">
-      <mat-icon>cached</mat-icon>
-    </button>
-  </div>
-  <div matTooltip="Submit your answers when you have finished (press 's')">
-    <button
-      mat-icon-button
-      (click)="save($event)"
-      [disabled]="(hasCompleted$ | async) || (isSubmitted)">
-      <mat-icon>favorite</mat-icon>
-    </button>
-  </div>
-</mat-toolbar>
-<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-
-<div fxLayout="column" fxLayoutAlign="space-around">
-  <app-choice
-    class="app-quiz"
-    *ngIf="(current$ | async) && !(root?.isSubmitted)"
-    [choice]="current$ | async"
-    (selected)="selected($event)"
-  ></app-choice>
-
-  <angular-org-chart class="app-chart" [data]="root"></angular-org-chart>
-</div>
-<div #footer></div>
+<mat-sidenav-container class="sidenav-container" hasBackdrop="true">
+  <mat-sidenav #sidenav mode="side" class="sidenav" (click)="sidenav.toggle()">
+    <app-navigation [surveys]="surveyRef?.surveys"></app-navigation>
+  </mat-sidenav>
+  <app-toolbar
+    class="app-toolbar"
+    [title]="title"
+    (toggleNavBar)="sidenav.toggle()"
+    (restartSurvey)="surveyRef?.restart(false)"
+    (saveSurvey)="surveyRef?.save(false)"
+    [canRestartSurvey]="(surveyRef?.hasCompleted$ | async) || surveyRef?.isSubmitted"
+    [canSubmitSurvey]="(surveyRef?.hasCompleted$ | async) && !surveyRef?.isSubmitted"
+  ></app-toolbar>
+  <!-- <app-survey #survey></app-survey> -->
+  <router-outlet (activate)="onActivated($event)"></router-outlet>
+  <div #footer></div>
+</mat-sidenav-container>

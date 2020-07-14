@@ -21,8 +21,8 @@ namespace Oracle
                     builder => { builder.WithOrigins("http://localhost:4200", "https://github.io").AllowAnyMethod().AllowAnyHeader(); });
             });
 
-            services.AddSingleton(_ => new QuizLiteDbContext(Configuration.GetConnectionString("Default")));
-            services.AddTransient<IQuizRepository, QuizLiteRepository>();
+            services.AddSingleton(_ => new SurveyLiteDbContext(Configuration.GetConnectionString("Default")));
+            services.AddTransient<ISurveyRepository, SurveyLiteRepository>();
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                 .AddJsonOptions(options => {
                     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;

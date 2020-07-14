@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { YesNoQuiz } from 'src/app/models/quiz.model';
+import { Choice } from 'src/app/models/survey.model';
 
 @Component({
   selector: 'org-chart-entity',
@@ -8,7 +8,7 @@ import { YesNoQuiz } from 'src/app/models/quiz.model';
 })
 export class EntityComponent {
   @Output() toggleChild = new EventEmitter();
-  @Input() data: YesNoQuiz;
+  @Input() data: Choice;
   @Input() hasParent = false;
   @Input() hideChild;
 

@@ -1,19 +1,8 @@
-.app-toolbar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
+.sidenav {
+  width: 300px;
 }
 
-.app-quiz {
-  position: sticky;
-  top: 64px;
-  left: 0;
-  right: 0;
-  z-index: 99;
-}
-
-.app-quiz, .app-chart {
-  margin-top: 2em;
+.sidenav-container {
+  flex: 1 1 auto;
+  height: 100%;
 }
