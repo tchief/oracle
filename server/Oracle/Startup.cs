@@ -9,6 +9,7 @@ using Oracle.Web;
 
 namespace Oracle
 {
+    // TODO: Serilog, Swagger, CSRF, Auth.
     public class Startup
     {
         public Startup(IConfiguration configuration) => Configuration = configuration;
@@ -22,7 +23,7 @@ namespace Oracle
             });
 
             services.AddSingleton(_ => new SurveyLiteDbContext(Configuration.GetConnectionString("Default")));
-            services.AddTransient<ISurveyRepository, SurveyLiteRepository>();
+            services.AddSingleton<ISurveyRepository, SurveyLiteRepository>();
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                 .AddJsonOptions(options => {
                     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;

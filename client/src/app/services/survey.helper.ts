@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Survey, Choice, Form } from '../models/survey.model';
 
+// While survey.service.ts - gets/submits data via http/mock.
+// This survey.helper.ts - manipulates Survey, helps build one.
+// TODO: Ask user name, instead of using date.
 @Injectable({
   providedIn: 'root',
 })
@@ -44,6 +47,7 @@ export class SurveyHelper {
       : root;
   }
 
+  // TODO: Consider deep clone here.
   private applyFirstSubmitted(survey: Survey): Choice {
     if (survey.submittedForms && survey.submittedForms.length > 0) {
       survey.root.setSelectedIds(

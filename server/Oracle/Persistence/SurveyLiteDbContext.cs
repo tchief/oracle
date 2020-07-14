@@ -4,6 +4,10 @@ using Oracle.Domain;
 
 namespace Oracle.Persistence
 {
+    // TODO: Provide interesting surveys, instead of faker-generated.
+    // TODO: Add indices & validation.
+    // TODO: Options (maxItems, ignoreSeed, rewrite, seedDomain).
+    // TODO: Cosmos.
     public class SurveyLiteDbContext
     {
         public LiteDatabase Database { get; }

@@ -33,7 +33,7 @@ namespace Oracle.Persistence
             return new []{ survey };
         }
 
-
+        [ExcludeFromCodeCoverage]
         private static IReadOnlyCollection<T> Zip<T>(IReadOnlyCollection<T> leafs, Func<string, T, T, T> builder) =>
             leafs.Batch(2, pair => builder($"{Lorem.Sentence(4).TrimEnd('.')}?", pair.First(), pair.Last())).ToList();
     }

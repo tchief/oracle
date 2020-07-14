@@ -6,6 +6,8 @@ import { Survey, Form, Choice } from '../models/survey.model';
 import { SurveyHelper } from './survey.helper';
 import { environment } from 'src/environments/environment';
 
+// TODO: Caching, consider requery item(s) on submit (as server-side rules can be applied).
+// TODO: For 'Akinator' domain, query server for next choice.
 @Injectable({
   providedIn: 'root',
 })

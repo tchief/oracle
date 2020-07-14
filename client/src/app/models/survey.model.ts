@@ -46,6 +46,7 @@ export class Choice {
     return `${this.isSelected ? 'node-selected' : 'node-unselected'} ${this.isRoot ? 'node-root' : ''}`;
   }
 
+  // TODO: Make it clear of whether 'answer === undefined'.
   select(answer: boolean): Choice {
     this.answer = answer;
     let selected = answer ? this.right : this.left;
@@ -54,6 +55,8 @@ export class Choice {
     return selected;
   }
 
+  // TODO: Consider moving these methods out of class
+  // TODO: Consider design this class towards more 'immutable' or 'viewmodel' way.
   getSelectedIds(): { [key: number]: boolean } {
     let choices: { [key: number]: boolean } = {};
     let current: Choice = this;

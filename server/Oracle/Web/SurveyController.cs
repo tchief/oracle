@@ -16,6 +16,10 @@ namespace Oracle.Web
         public async Task<ActionResult<IEnumerable<Survey>>> GetSurveysAsync()
             => Ok(await _repository.GetSurveysAsync());
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Survey>>> GetSurveyAsync(string id)
+            => Ok(await _repository.GetSurveyAsync(id));
+
         [HttpPost]
         public async Task<ActionResult<Form>> SubmitSurvey([FromBody] Form form)
             => Ok(await _repository.SubmitSurveyAsync(form));
