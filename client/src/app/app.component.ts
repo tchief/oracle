@@ -14,7 +14,7 @@ export class AppComponent {
   @ViewChild('survey') surveyRef: SurveyComponent;
   title = 'Oracle';
 
-  onActivated(componentRef : any) {
+  onActivated(componentRef: any) {
     this.surveyRef = componentRef;
     this.surveyRef?.current$
       .pipe(delay(100))
@@ -32,9 +32,11 @@ export class AppComponent {
   }
 
   scrollToFooter() {
-    this.footerRef.nativeElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-    });
+    if (this.footerRef) {
+      this.footerRef.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
   }
 }

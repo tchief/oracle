@@ -87,7 +87,9 @@ export class SurveyComponent implements OnInit {
   restart(value) {
     if (this.isSubmitted || (this.current.value && !this.current.value?.hasChildren)) {
       this.isLoading = true;
+      let index = this.surveys.findIndex(s => s.id === this.root.id);
       this.root = this.surveyHelper.reset(this.root);
+      this.surveys[index] = this.root;
       this.current.next(this.root.root);
       this.isSubmitted = false;
       this.isLoading = false;

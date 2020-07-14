@@ -27,7 +27,7 @@ export class OrgChartComponent implements OnInit {
 
   toggleAllChildren(data, state) {
     data.hideChild = state;
-    if (data.children) {
+    if (data?.children) {
       data.children.forEach(child => this.toggleAllChildren(child, state));
     }
   }
