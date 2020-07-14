@@ -38,7 +38,7 @@ jobs:
         dotnet publish -c Release -o dist server/Oracle
       
     - name: Deploy
-      uses: Azure/webapps-deploy@v2.1
+      uses: Azure/webapps-deploy@v1
       with:
         app-name: the-oracle
         publish-profile: ${{ secrets.AZURE_APP_SERVICE }}
