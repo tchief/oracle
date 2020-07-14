@@ -1,48 +1,17 @@
 <mat-sidenav-container class="sidenav-container" hasBackdrop="true">
-  <mat-sidenav #sidenav mode="side" class="sidenav">
-    <mat-toolbar color="primary">Surveys</mat-toolbar>
-    <mat-nav-list class="sidenav-list">
-      <a
-        mat-list-item
-        *ngFor="let s of survey.surveys; let i = index"
-        [routerLink]="s.id"
-        routerActiveLink="active-survey"
-        [class.completed-survey]="s.submittedForms.length"
-      >
-        {{ s.name }}
-      </a>
-    </mat-nav-list>
+  <mat-sidenav #sidenav mode="side" class="sidenav" (click)="sidenav.toggle()">
+    <app-navigation [surveys]="surveyRef?.surveys"></app-navigation>
   </mat-sidenav>
-  <mat-toolbar class="app-toolbar">
-    <button
-      mat-icon-button
-      (click)="sidenav.toggle()"
-      matTooltip="List all surveys (press 'l')"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>{{ title }}</span>
-    <div fxFlex></div>
-    <div matTooltip="Restart again (press 'r')">
-      <button
-        mat-icon-button
-        (click)="survey.restart($event)"
-        [disabled]="!survey.isSubmitted"
-      >
-        <mat-icon>cached</mat-icon>
-      </button>
-    </div>
-    <div matTooltip="Submit your answers when you have finished (press 's')">
-      <button
-        mat-icon-button
-        (click)="survey.save($event)"
-        [disabled]="(survey.hasCompleted$ | async) || survey.isSubmitted"
-      >
-        <mat-icon>favorite</mat-icon>
-      </button>
-    </div>
-  </mat-toolbar>
-
-  <app-survey #survey></app-survey>
+  <app-toolbar
+    class="app-toolbar"
+    [title]="title"
+    (toggleNavBar)="sidenav.toggle()"
+    (restartSurvey)="surveyRef?.restart(false)"
+    (saveSurvey)="surveyRef?.save(false)"
+    [canRestartSurvey]="surveyRef?.isSubmitted"
+    [canSubmitSurvey]="!(surveyRef?.hasCompleted$ | async) && !surveyRef?.isSubmitted"
+  ></app-toolbar>
+  <!-- <app-survey #survey></app-survey> -->
+  <router-outlet (activate)="onActivated($event)"></router-outlet>
   <div #footer></div>
 </mat-sidenav-container>

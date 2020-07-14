@@ -1,0 +1,29 @@
+<mat-toolbar class="app-toolbar">
+  <button
+    mat-icon-button
+    (click)="toggleNavBar.emit(true)"
+    matTooltip="List all surveys (press 'l')"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ title }}</span>
+  <div fxFlex></div>
+  <div matTooltip="Restart again (press 'r')">
+    <button
+      mat-icon-button
+      (click)="restartSurvey.emit(true)"
+      [disabled]="!canRestartSurvey"
+    >
+      <mat-icon>cached</mat-icon>
+    </button>
+  </div>
+  <div matTooltip="Submit your answers when you have finished (press 's')">
+    <button
+      mat-icon-button
+      (click)="saveSurvey.emit(true)"
+      [disabled]="!canSubmitSurvey"
+    >
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

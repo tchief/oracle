@@ -5,11 +5,14 @@ import { Survey, Choice, Form } from '../models/survey.model';
   providedIn: 'root',
 })
 export class SurveyHelper {
-
   buildForm(survey: Survey): Form {
-    return { userName: new Date().toISOString(), surveyId: survey.id, choicesMade: survey.root.getSelectedIds() };
+    return {
+      userName: new Date().toISOString(),
+      surveyId: survey.id,
+      choicesMade: survey.root.getSelectedIds(),
+    };
   }
-  
+
   reset(survey: Survey): Survey {
     return this.buildSurvey(survey);
   }
@@ -21,7 +24,12 @@ export class SurveyHelper {
   }
 
   private buildSurvey(survey: Survey): Survey {
-    return { ...survey, root: this.buildSurveyFromRoot(survey.root, true) };
+    return new Survey(
+      survey.id,
+      survey.name,
+      this.buildSurveyFromRoot(survey.root, true),
+      survey.submittedForms
+    );
   }
 
   private buildSurveyFromRoot(root: Choice, isRoot: boolean = false): Choice {
@@ -31,15 +39,18 @@ export class SurveyHelper {
           root.question,
           this.buildSurveyFromRoot(root.left),
           this.buildSurveyFromRoot(root.right),
-          isRoot)
+          isRoot
+        )
       : root;
   }
 
   private applyFirstSubmitted(survey: Survey): Choice {
     if (survey.submittedForms && survey.submittedForms.length > 0) {
-      survey.root.setSelectedIds(survey.submittedForms[survey.submittedForms.length-1].choicesMade);
+      survey.root.setSelectedIds(
+        survey.submittedForms[survey.submittedForms.length - 1].choicesMade
+      );
     }
-    
+
     return survey.root;
   }
 }

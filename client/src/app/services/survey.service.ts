@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Survey, Form } from '../models/survey.model';
 import { SurveyHelper } from './survey.helper';
 import { environment } from 'src/environments/environment';
@@ -20,8 +20,9 @@ export class SurveyService {
   }
 
   submitSurvey(survey: Survey) {
+    let form = this.surveyHelper.buildForm(survey);
     return this.http
-      .post<Form>(`${environment.apiUrl}/survey/`, this.surveyHelper.buildForm(survey))
-      .pipe(catchError((error) => throwError(error)));
+      .post<Form>(`${environment.apiUrl}/survey/`, form)
+      .pipe(tap(r => survey.submittedForms.push(form)), catchError((error) => throwError(error)));
   }
 }

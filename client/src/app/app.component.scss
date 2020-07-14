@@ -1,31 +1,8 @@
-.app-toolbar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
+.sidenav {
+  width: 300px;
 }
 
 .sidenav-container {
   flex: 1 1 auto;
   height: 100%;
-}
-
-.sidenav {
-  width: 300px;
-}
-
-.sidenav-list {
-  padding-top: 0;
-  a {
-    border-bottom: 1px solid #f3f3f3;
-    &.active-survey {
-      background: rgba(#ff4081, 0.6);
-      color: white;
-    }
-    &.completed-survey {
-      background: rgba(#3f51b5, 0.6);
-      color: white;
-    }
-  }
 }

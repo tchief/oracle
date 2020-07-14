@@ -1,0 +1,14 @@
+.sidenav-list {
+  padding-top: 0;
+  a {
+    border-bottom: 1px solid #f3f3f3;
+    &.completed-survey {
+      background: rgba(#3f51b5, 0.6);
+      color: white;
+    }
+    &.active-survey {
+      background: rgba(#ff4081, 0.6);
+      color: white;
+    }
+  }
+}

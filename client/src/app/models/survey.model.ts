@@ -1,8 +1,14 @@
-export interface Survey {
-  id: string;
-  name: string;
-  root: Choice;
-  submittedForms: Form[];
+export class Survey {
+  constructor(
+    public id: string,
+    public name: string,
+    public root: Choice,
+    public submittedForms: Form[]
+  ) {}
+
+  get isSubmitted(): boolean {
+    return this.submittedForms && this.submittedForms.length > 0;
+  }
 }
 
 export interface Form {
@@ -21,13 +27,13 @@ export class Choice {
     public hideChild: boolean = true,
     public answer?: boolean,
     public name?: string,
-    public isSelected: boolean = false,
+    public isSelected: boolean = false
   ) {
     if (this.left) this.left.name = 'NO';
     if (this.right) this.right.name = 'YES';
     if (this.isRoot) this.hideChild = false;
   }
-  
+
   get hasChildren(): boolean {
     return this.right != null || this.left != null;
   }
@@ -60,7 +66,7 @@ export class Choice {
 
   setSelectedIds(form: { [key: number]: boolean }) {
     let current: Choice = this;
-    while (current && current.hasChildren && (form[current.id] !== undefined)) {
+    while (current && current.hasChildren && form[current.id] !== undefined) {
       current = current.select(form[current.id]);
     }
 
