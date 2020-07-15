@@ -7,7 +7,7 @@
     routerLinkActive="active-survey"
     [class.completed-survey]="survey.isSubmitted"
   >
-    {{ survey.name }}
+    {{i+1}}. {{ survey.name }}
     <span *ngIf="survey.isSubmitted"
       >&nbsp;({{ survey.submittedForms.length }})</span
     >

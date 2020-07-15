@@ -29,6 +29,9 @@ export class AppComponent {
     else if (event.key === 'r') this.surveyRef.restart(false);
     else if (event.key === 's') this.surveyRef.save(false);
     else if (event.key === 'l') this.sidenavRef.toggle();
+    else if (event.key === '0') this.surveyRef.navigateByIndex(10-1);
+    else if (event.key > '0' && event.key <= '9')
+      this.surveyRef.navigateByIndex(event.key.charCodeAt(0)-'0'.charCodeAt(0)-1);
   }
 
   scrollToFooter() {

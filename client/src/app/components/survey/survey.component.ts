@@ -46,6 +46,11 @@ export class SurveyComponent implements OnInit {
     this.router.navigate([`/${this.root.id}`]);
   }
 
+  navigateByIndex(index) {
+    const next = this.surveys[index];
+    if (next) this.router.navigate([`/${next.id}`]);
+  }
+
   select(id) {
     if (this.surveys.length) {
       this.root = this.surveys[id] ?? this.surveys.find(s => s.id === id?.surveyId) ?? this.root;
@@ -71,13 +76,14 @@ export class SurveyComponent implements OnInit {
         console.log(result);
         this.isSubmitted = true;
         this.isLoading = false;
-        this.snackBar.open('Your answers were submitted.', 'Close');
+        this.snackBar.open('Your answers were submitted.', 'Close', { duration: 2000 });
       },
       (error) => {
         console.log(error);
         this.snackBar.open(
           'Could not submit your answers. Please, try again later.',
-          'Close'
+          'Close',
+          { duration: 2000 }
         );
         this.isLoading = false;
       }
