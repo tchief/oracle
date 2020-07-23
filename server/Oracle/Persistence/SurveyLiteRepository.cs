@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using LiteDB;
 using MoreLinq;
 using Oracle.Domain;
+using LanguageExt;
+using LanguageExt.Common;
 
 namespace Oracle.Persistence
 {
@@ -24,13 +26,18 @@ namespace Oracle.Persistence
             return Task.FromResult((IEnumerable<Survey>)surveys);
         }
 
-        public Task<Survey> GetSurveyAsync(string id) {
+        public OptionAsync<Survey> GetSurveyAsync(string id) {
             var survey = _context.Surveys.FindById(new ObjectId(id));
+            if (survey == null) return OptionAsync<Survey>.None;
+
             survey.SubmittedForms.AddRange(_context.Forms.Find(f => f.SurveyId == id));
             return Task.FromResult(survey);
         }
 
-        public Task<Form> SubmitSurveyAsync(Form form) {
+        public EitherAsync<Error, Form> SubmitSurveyAsync(Form form) {
+            var survey = _context.Surveys.FindById(new ObjectId(form.SurveyId));
+            if (survey == null) return Error.New($"Survey was not found by {form.SurveyId}");
+
             form.ObjectId = ObjectId.NewObjectId();
             _context.Forms.Insert(form);
             return Task.FromResult(form);

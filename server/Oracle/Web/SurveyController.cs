@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NickDarvey.LanguageExt.AspNetCore;
 using Oracle.Domain;
 
 namespace Oracle.Web
@@ -17,11 +18,11 @@ namespace Oracle.Web
             => Ok(await _repository.GetSurveysAsync());
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Survey>>> GetSurveyAsync(string id)
-            => Ok(await _repository.GetSurveyAsync(id));
+        public Task<IActionResult> GetSurveyAsync(string id)
+            => _repository.GetSurveyAsync(id).ToActionResult();
 
         [HttpPost]
-        public async Task<ActionResult<Form>> SubmitSurvey([FromBody] Form form)
-            => Ok(await _repository.SubmitSurveyAsync(form));
+        public Task<IActionResult> SubmitSurvey([FromBody] Form form)
+            => _repository.SubmitSurveyAsync(form).ToActionResult();
     }
 }
