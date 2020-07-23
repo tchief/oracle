@@ -18,9 +18,10 @@ namespace Oracle.Persistence
 
         public Task<IEnumerable<Survey>> GetSurveysAsync() {
             var surveys = _context.Surveys.FindAll().ToList();
-            foreach (var survey in surveys) {
-                var lastSubmitted = _context.Forms.Find(f => f.SurveyId == survey.Id).MaxBy(f => f.ObjectId.CreationTime).Take(1);
-                survey.SubmittedForms.AddRange(lastSubmitted);
+            foreach (var survey in surveys)
+            {
+                var submitted = _context.Forms.Find(f => f.SurveyId == survey.Id).OrderBy(f => f.ObjectId.CreationTime);
+                survey.SubmittedForms.AddRange(submitted);
             }
             
             return Task.FromResult((IEnumerable<Survey>)surveys);
