@@ -13,6 +13,7 @@ namespace Oracle.Persistence
     [ExcludeFromCodeCoverage]
     public static class RandomEntitiesGenerator
     {
+        [ExcludeFromCodeCoverage]
         public static IReadOnlyCollection<Survey> SeedSurveys() {
             var generator = new RandomGenerator((int) DateTime.UtcNow.Ticks % int.MaxValue);
             var depth = generator.Next(4, 10);
