@@ -2,7 +2,7 @@ name: CD
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, hasura ]
   pull_request:
     branches: [ master ]
 
