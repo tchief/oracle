@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://the-oracle.azurewebsites.net/api'
+  apiUrl: 'http://34.107.40.164:8282/v1/graphql'
 };

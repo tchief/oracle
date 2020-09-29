@@ -1,10 +1,40 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Survey, Form, Choice } from '../models/survey.model';
 import { SurveyHelper } from './survey.helper';
-import { environment } from 'src/environments/environment';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
+// TODO: Move to separate files, generate types.
+interface SurveysResponse {
+  surveys: Survey[];    
+}
+
+const SurveysQuery =
+gql`query Surveys {
+  surveys {
+    id
+    name
+    root
+    submittedForms {
+      choicesMade
+      surveyId
+      userName
+    }
+  }
+}`; 
+
+const SubmitFormMutation = 
+gql`mutation SubmitForm($surveyId: uuid!, $userName: String!, $choicesMade: json!) {
+  insert_forms_one(object: {surveyId: $surveyId, userName: $userName, choicesMade: $choicesMade}) {
+    __typename,
+    id,
+    surveyId,
+    userName,
+    choicesMade
+  }
+}`;
 
 // TODO: Caching, consider requery item(s) on submit (as server-side rules can be applied).
 // TODO: For 'Akinator' domain, query server for next choice.
@@ -12,19 +42,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class SurveyService {
-  constructor(private http: HttpClient, private surveyHelper: SurveyHelper) {}
+  constructor(private apollo: Apollo, private surveyHelper: SurveyHelper) {}
 
   getSurveys(): Observable<Survey[]> {
-    return this.http.get<Survey[]>(`${environment.apiUrl}/survey`).pipe(
-      map((all) => all.map((i) => this.surveyHelper.buildSurveyWithForm(i))),
+    return this.apollo.query<SurveysResponse>({query: SurveysQuery}).pipe(
+      map(({ data }) => data.surveys.map((i) => this.surveyHelper.buildSurveyWithForm(i))),
       catchError((error) => this.getMockedSurveys())
     );
   }
 
   submitSurvey(survey: Survey) {
     let form = this.surveyHelper.buildForm(survey);
-    return this.http.post<Form>(`${environment.apiUrl}/survey/`, form).pipe(
-      tap((r) => survey.submittedForms.push(form)),
+    return this.apollo.mutate<Form>({mutation: SubmitFormMutation, variables: form}).pipe(
+      tap((r) => survey.submittedForms = survey.submittedForms.concat(form)),
       catchError((error) => throwError(error))
     );
   }

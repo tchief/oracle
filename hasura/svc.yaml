@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: the-oracle-app
+  name: the-oracle-app
+  namespace: default
+spec:
+  ports:
+  - protocol: TCP
+    port: 8282
+    targetPort: 8080
+  selector:
+    app: the-oracle-app
+  type: LoadBalancer

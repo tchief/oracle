@@ -21,6 +21,7 @@ import { EntityComponent } from './components/org-chart-entity/entity.component'
 import { OrgChartComponent } from './components/org-chart/org-chart.component';
 import { SurveyComponent } from './components/survey/survey.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     MatSidenavModule,
     LayoutModule,
     MatListModule,
+    GraphQLModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

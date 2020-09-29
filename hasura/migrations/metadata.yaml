@@ -1,0 +1,26 @@
+version: 2
+tables:
+- table:
+    schema: public
+    name: forms
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - id
+      - userName
+      - surveyId
+      - choicesMade
+      filter: {}
+      limit: 100
+- table:
+    schema: public
+    name: surveys
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - id
+      - name
+      - root
+      filter: {}
